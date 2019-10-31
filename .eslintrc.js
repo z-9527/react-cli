@@ -24,6 +24,7 @@ module.exports = {
   ],
   rules: {
     semi: ["error", "always"],  //语句必须用;
-    "space-before-function-paren": 0
+    "space-before-function-paren": 0,
+    "no-unused-vars": 1
   }
 }
