@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // CSS拆分
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // 从根目录走
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir);
 }
 module.exports = {
@@ -15,6 +15,7 @@ module.exports = {
   output: {
     path: resolve('build'),
     filename: '[name].js'
+    // publicPath: './'
   },
   resolve: {
     alias: {
@@ -51,6 +52,30 @@ module.exports = {
           },
           'css-loader'
         ]
+      },
+      {
+        test: /\.(png|jpe?g|svg|gif)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 100,
+          name: 'static/img/[name].[hash:7].[ext]'
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'static/font/[name].[hash:7].[ext]'
+        }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'static/media/[name].[hash:7].[ext]'
+        }
       }
     ]
   },

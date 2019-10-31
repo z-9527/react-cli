@@ -1,0 +1,2 @@
+# 忽略assets文件夹的eslint检测
+/src/assets/*

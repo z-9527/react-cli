@@ -1,0 +1,23 @@
+{
+  "id": "1238855",
+  "name": "chat",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "36566",
+      "name": "播放",
+      "font_class": "bofang3",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "8348138",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e71f",
+      "unicode_decimal": 59167
+    }
+  ]
+}
