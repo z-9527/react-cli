@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // CSS拆分
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // 从根目录走
 function resolve(dir) {
   return path.join(__dirname, '..', dir);
@@ -17,6 +17,7 @@ module.exports = {
   output: {
     path: resolve('build'),
     filename: '[name].js',
+    libraryTarget: 'umd',
     chunkFilename: 'static/js/[name].[contenthash:8].chunk.js'
     // publicPath: './'
   },
@@ -25,7 +26,14 @@ module.exports = {
       '@': resolve('src')
     }
   },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  },
   optimization: {
+    // splitChunks: {
+    //   chunks: 'all'
+    // },
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
   },
   module: {
@@ -94,6 +102,10 @@ module.exports = {
       chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
       ignoreOrder: false // Enable to remove warnings about conflicting order
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled',
+      generateStatsFile: true
+    })
   ]
 };
