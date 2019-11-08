@@ -1,11 +1,18 @@
-import React from 'react';
-import Test from '@/components/Test';
+import React, { Suspense } from 'react';
+// import Test from '@/components/Test';
 import './app.css';
-function App () {
+// import asyncComponent from './components/asyncComponent';
+
+const Test = React.lazy(() => import('./components/Test'));
+
+// const Test = asyncComponent(() => import('./components/Test'));
+function App() {
   return (
     <div>
       hello world
-      <Test/>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Test />
+      </Suspense>
     </div>
   );
 }

@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // CSS拆分
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 // 从根目录走
 function resolve(dir) {
@@ -14,13 +16,17 @@ module.exports = {
   },
   output: {
     path: resolve('build'),
-    filename: '[name].js'
+    filename: '[name].js',
+    chunkFilename: 'static/js/[name].[contenthash:8].chunk.js'
     // publicPath: './'
   },
   resolve: {
     alias: {
       '@': resolve('src')
     }
+  },
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
   },
   module: {
     rules: [
@@ -32,7 +38,7 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-react'],
-              plugins: ['@babel/plugin-proposal-class-properties']
+              plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-syntax-dynamic-import']
             }
           },
           'eslint-loader'
@@ -85,7 +91,7 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // all options are optional
       filename: 'static/css/[name].css',
-      chunkFilename: '[id].css',
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
       ignoreOrder: false // Enable to remove warnings about conflicting order
     }),
     new CleanWebpackPlugin()

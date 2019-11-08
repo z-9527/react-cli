@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './style.css';
 import './style2.css';
-import img from './webpack.svg';
+// import img from './webpack.svg';
 import '@/assets/fonts/iconfont.css';
 import '@/assets/fonts/iconfont.js';
 
